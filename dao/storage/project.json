@@ -1,0 +1,55 @@
+[
+  {
+    "name": "CashApplication",
+    "createdAt": "2025-12-10T08:00:43.661Z",
+    "id": "c604339b50965a59",
+    "phaseId": "b95d5558f2bc6b9f",
+    "phaseName": "Development"
+  },
+  {
+    "name": "Order Triage",
+    "description": "This is the project for US company, email classification and extraction of Shipping address from customer Purchase order.",
+    "createdAt": "2025-12-10T08:06:45.555Z",
+    "id": "26d9bbeb2db2c9b3",
+    "phaseId": "fccfb0fe7dba5f63",
+    "phaseName": "Idea"
+  },
+  {
+    "name": "SFM_SAP data",
+    "description": "Shopfloor management - retrieve data from SAP.",
+    "createdAt": "2025-12-10T08:16:55.434Z",
+    "id": "e8ddd779b34a63d9",
+    "phaseId": "e012b57958409dd6",
+    "phaseName": "Design"
+  },
+  {
+    "name": "InvoiceProcessing",
+    "description": "Automation of P2P process - invoice booking.",
+    "phaseId": "5f6c0b8ab49f293d",
+    "id": "3eb06737a6ed7816",
+    "phaseName": "Assessment"
+  },
+  {
+    "name": "Booking deals Coupa",
+    "description": "Automation of booking deals in Coupa app.",
+    "phaseId": "b95d5558f2bc6b9f",
+    "phaseName": "Development",
+    "id": "3f9f56df45af4ca2"
+  },
+  {
+    "name": "Leasing contract creation",
+    "description": "Automatic creation of leasing contracts in SAP",
+    "startDate": "2025-12-14",
+    "phaseId": "fccfb0fe7dba5f63",
+    "phaseName": "Idea",
+    "id": "661cfd8d4e795b7a"
+  },
+  {
+    "name": "ARG Withholding tax",
+    "description": "Download of withholding tax for 3rd parties",
+    "startDate": "2026-01-30",
+    "phaseId": "fccfb0fe7dba5f63",
+    "phaseName": "Idea",
+    "id": "5c594447028739b2"
+  }
+]

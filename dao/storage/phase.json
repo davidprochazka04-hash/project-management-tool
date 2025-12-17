@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Assessment",
+    "description": "Toto je nova description",
+    "id": "5f6c0b8ab49f293d"
+  },
+  {
+    "name": "Idea",
+    "description": "Automaticky vytvořená výchozí fáze pro nové projekty.",
+    "id": "fccfb0fe7dba5f63"
+  },
+  {
+    "name": "Development",
+    "description": "Project in the development phase",
+    "id": "b95d5558f2bc6b9f"
+  },
+  {
+    "name": "Design",
+    "description": "Project in phase design ",
+    "id": "e012b57958409dd6"
+  }
+]
