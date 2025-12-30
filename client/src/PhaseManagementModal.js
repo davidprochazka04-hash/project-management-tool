@@ -31,7 +31,7 @@ const PhaseManagementModal = ({ onClose, onRefreshProjects }) => {
     .then(() => {
       setNewPhaseName('');
       fetchPhases();
-      // Aktualizujeme seznam v App.js pro případ, že nová fáze ovlivní filtry/status
+      // Aktualizuje seznam v App.js pro případ, že nová fáze ovlivní filtry/status
       if (onRefreshProjects) onRefreshProjects();
     })
     .catch(err => alert(err.errorMessage || "Chyba při vytváření."));
@@ -57,7 +57,7 @@ const PhaseManagementModal = ({ onClose, onRefreshProjects }) => {
     .then(() => {
       setEditingId(null);
       fetchPhases();
-      // KLÍČOVÝ BOD: Po úspěšné změně názvu fáze řekneme App.js, aby načetla čerstvá data projektů
+      // Po úspěšné změně názvu fáze řekne App.js, aby načetla čerstvá data projektů
       if (onRefreshProjects) onRefreshProjects();
     })
     .catch(err => alert(err.errorMessage || "Chyba při aktualizaci fáze."));

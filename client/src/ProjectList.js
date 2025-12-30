@@ -16,7 +16,7 @@ const ProjectList = ({ projects, onEdit, onDelete }) => {
             key={project.id} 
             project={project} 
             onEdit={onEdit} 
-            onDelete={onDelete} // Předáváme funkci dál
+            onDelete={onDelete} 
           />
         ))}
       </div>

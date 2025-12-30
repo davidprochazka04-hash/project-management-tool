@@ -31,7 +31,7 @@ const ProjectForm = ({ editData, onClose, onProjectCreated, onProjectUpdated }) 
     let method;
 
     if (editData) {
-      // Data pro UPDATE (zde jsou phaseId potřeba)
+      // Data pro UPDATE 
       url = `http://localhost:8000/project/update/${editData.id}`;
       method = 'PUT';
       const selectedPhase = phases.find(p => String(p.id) === String(phaseId));
@@ -42,7 +42,7 @@ const ProjectForm = ({ editData, onClose, onProjectCreated, onProjectUpdated }) 
         phaseName: selectedPhase ? selectedPhase.name : ""
       };
     } else {
-      // Data pro CREATE (striktně jen name a description)
+      // Data pro CREATE 
       url = 'http://localhost:8000/project/create';
       method = 'POST';
       projectData = {

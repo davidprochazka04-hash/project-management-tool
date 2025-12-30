@@ -8,7 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* OPRAVA PRO IKONY: Vynucení viditelnosti SVG prvků */
+/* IKONY: Vynucení viditelnosti SVG prvků */
 svg {
   display: inline-block;
   vertical-align: middle;
@@ -84,7 +84,6 @@ button:hover {
 /* --- TABULKA PROJEKTŮ --- */
 .table-header, .project-row {
   display: grid;
-  /* ZMĚNA: Zvětšeno ze 60px na 100px pro dvě tlačítka vedle sebe */
   grid-template-columns: 200px 1fr 140px 100px; 
   gap: 25px;
   align-items: center;

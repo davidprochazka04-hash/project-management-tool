@@ -13,7 +13,7 @@ const Header = ({ onOpenModal, onManagePhases, onOpenStatus }) => {
       <h1>Přehled projektů</h1>
       
       <div className="header-buttons">
-        {/* Tady byla chyba - přidali jsme onClick={onOpenStatus} */}
+        {/*Přidán onClick={onOpenStatus} */}
         <button className="btn-secondary" onClick={onOpenStatus}>
           <BarChart2 size={18} /> Status
         </button>
