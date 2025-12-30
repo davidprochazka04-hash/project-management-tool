@@ -18,5 +18,15 @@
     "name": "Design",
     "description": "Project in phase design ",
     "id": "e012b57958409dd6"
+  },
+  {
+    "name": "Test",
+    "description": "Automaticky vytvořeno při aktualizaci projektu.",
+    "id": "1545b9c82a84a73a"
+  },
+  {
+    "name": "Hypercare",
+    "description": "Ručně vytvořeno",
+    "id": "fdffce6564548fef"
   }
 ]

@@ -3,8 +3,9 @@
     "name": "CashApplication",
     "createdAt": "2025-12-10T08:00:43.661Z",
     "id": "c604339b50965a59",
-    "phaseId": "b95d5558f2bc6b9f",
-    "phaseName": "Development"
+    "phaseId": "fdffce6564548fef",
+    "phaseName": "Hypercare",
+    "description": "Automatizace příchozích plateb"
   },
   {
     "name": "Order Triage",
@@ -48,8 +49,8 @@
     "name": "ARG Withholding tax",
     "description": "Download of withholding tax for 3rd parties",
     "startDate": "2026-01-30",
-    "phaseId": "fccfb0fe7dba5f63",
-    "phaseName": "Idea",
+    "phaseId": "1545b9c82a84a73a",
+    "phaseName": "Test",
     "id": "5c594447028739b2"
   }
 ]

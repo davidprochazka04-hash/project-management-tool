@@ -4,16 +4,11 @@ const ajv = new Ajv({ allErrors: true });
 const addFormats = require("ajv-formats"); 
 addFormats(ajv); 
 
-// --- DAO Imports ---
 const ProjectDao = require("../../dao/project-dao"); 
 const projectDaoInstance = new ProjectDao(); 
-// 🔥 NOVÝ IMPORT: PhaseDao pro kontrolu existence nové fáze
 const PhaseDao = require("../../dao/phase-dao"); 
 const phaseDaoInstance = new PhaseDao(); 
 
-// ------------------------------------------------------------------
-// SCHEMA PRO VALIDACI DAT K AKTUALIZACI PROJEKTU
-// ------------------------------------------------------------------
 const schema = {
   type: "object",
   properties: {
@@ -21,23 +16,18 @@ const schema = {
     description: { type: "string" },
     startDate: { type: "string", format: "date" }, 
     status: { type: "string" },
-    // 🔥 Povolení aktualizace phaseId
-    phaseId: { type: "string" } 
+    phaseId: { type: "string" },
+    phaseName: { type: "string" } 
   },
-  // Pro Update povolíme, aby se posílala jen podmnožina dat
   required: [], 
   additionalProperties: false
 };
 
-// ------------------------------------------------------------------
-// HLAVNÍ ABL FUNKCE
-// ------------------------------------------------------------------
 async function UpdateAbl(req, res) {
   try {
     const projectId = req.params.id;     
     const newProjectData = req.body;     
     
-    // 1. Základní kontrola
     if (!projectId || Object.keys(newProjectData).length === 0) {
       return res.status(400).send({
         success: false,
@@ -45,9 +35,7 @@ async function UpdateAbl(req, res) {
       });
     }
     
-    // 2. Validace dat k aktualizaci
     const valid = ajv.validate(schema, newProjectData);
-
     if (!valid) {
       return res.status(400).send({
         success: false,
@@ -57,30 +45,32 @@ async function UpdateAbl(req, res) {
       });
     }
     
-    // 🔥 3. BYZNYS KONTROLA: Ověření existence nové fáze
-    if (newProjectData.phaseId) {
-        // Zkusíme najít fázi s novým ID
-        const targetPhase = await phaseDaoInstance.getPhase(newProjectData.phaseId);
+    
+    if (newProjectData.phaseName) {
+        const phaseList = await phaseDaoInstance.listPhases();
+        // Zkusí najít existující fázi podle názvu
+        let targetPhase = phaseList.find(
+            p => p.name.toLowerCase() === newProjectData.phaseName.toLowerCase()
+        );
 
+        // Pokud fáze neexistuje, vytvoří ji
         if (!targetPhase) {
-            return res.status(404).send({ 
-                success: false,
-                error: `Phase with ID '${newProjectData.phaseId}' specified for assignment was not found.` 
+            targetPhase = await phaseDaoInstance.createPhase({ 
+                name: newProjectData.phaseName,
+                description: `Automaticky vytvořeno při aktualizaci projektu.`
             });
         }
-        
-        // 🔥 Zajištění denormalizace: Přidání jména fáze k aktualizovaným datům
+
+        // Propojí projekt s fází (uloží ID i jméno pro denormalizaci)
+        newProjectData.phaseId = targetPhase.id;
         newProjectData.phaseName = targetPhase.name; 
     }
 
-    // 4. Volání DAO pro aktualizaci
     const updatedProject = await projectDaoInstance.updateProject(projectId, newProjectData); 
     
     if (updatedProject) {
-      // 5. Úspěch
       return res.json(updatedProject); 
     } else {
-      // 6. Chyba 404
       return res.status(404).send({ 
         success: false,
         error: `Project with ID '${projectId}' not found for update.` 
@@ -88,7 +78,6 @@ async function UpdateAbl(req, res) {
     }
 
   } catch (err) {
-    // 7. Chyba 500
     console.error("Error in UpdateAbl for Project:", err);
     return res.status(500).send({ 
         success: false, 

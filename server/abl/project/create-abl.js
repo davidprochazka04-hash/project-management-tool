@@ -45,10 +45,10 @@ const schema = {
   properties: {
     name: { 
         type: "string",
-        minLength: 1 // 🔥 ZACHOVÁNO: Zakazuje prázdný řetězec pro název
+        minLength: 1 // Zakazuje prázdný řetězec pro název
     },
     description: { 
-        type: "string" // 🔥 UPRAVENO: Povoluje prázdný řetězec ("")
+        type: "string" // Povoluje prázdný řetězec ("")
     },
     startDate: { type: "string", format: "date" },
   },
@@ -75,7 +75,7 @@ async function CreateAbl(req, res) {
       });
     }
     
-    // 🔥 KONTROLA UNIKÁTNOSTI NÁZVU PROJEKTU
+    // KONTROLA UNIKÁTNOSTI NÁZVU PROJEKTU
     const projectList = await projectDaoInstance.listProjects();
     const existingProject = projectList.find(
         // Porovnáváme s ignorováním velikosti písmen

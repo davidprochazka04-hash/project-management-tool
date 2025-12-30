@@ -5,7 +5,7 @@ const ajv = new Ajv();
 // --- DAO Imports ---
 const PhaseDao = require("../../dao/phase-dao"); 
 const phaseDaoInstance = new PhaseDao(); 
-// 🔥 NOVÝ IMPORT: Potřebujeme ProjectDao pro kontrolu integrity
+// ProjectDao pro kontrolu integrity
 const ProjectDao = require("../../dao/project-dao"); 
 const projectDaoInstance = new ProjectDao(); 
 
@@ -42,7 +42,7 @@ async function DeleteAbl(req, res) {
     
     const phaseIdToDelete = body.id;
     
-    // 🔥 2. KONTROLA INTEGRITY: Zda fáze není přiřazena k žádnému projektu
+    // 2. KONTROLA INTEGRITY: Zda fáze není přiřazena k žádnému projektu
     const projectList = await projectDaoInstance.listProjects();
     const hasProjects = projectList.some(p => p.phaseId === phaseIdToDelete);
 

@@ -11,10 +11,10 @@ const schema = {
   properties: {
     name: {
         type: "string",
-        minLength: 1 // 🔥 Zakazuje prázdný řetězec pro název
+        minLength: 1 // Zakazuje prázdný řetězec pro název
     },
     description: {
-        type: "string" // 🔥  Povoluje prázdný řetězec (""), protože je nepovinné
+        type: "string" //  Povoluje prázdný řetězec (""), protože je nepovinné
     }
   },
   required: ["name"],
@@ -36,7 +36,7 @@ async function CreateAbl(req, res) {
             });
         }
 
-        // 🔥 KONTROLA UNIKÁTNOSTI NÁZVU
+        // KONTROLA UNIKÁTNOSTI NÁZVU
         const phaseList = await phaseDaoInstance.listPhases();
         const existingPhase = phaseList.find(
             // Porovnáváme s ignorováním velikosti písmen (case-insensitive)

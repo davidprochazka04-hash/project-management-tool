@@ -1,6 +1,7 @@
 const express = require("express");
-const port = 3000;
+const port = 8000;
 const app = express();
+const cors = require('cors');
 /*const cors = require("cors");
 const config = require("./config/server-config"); // Předpokládaná konfigurace (port, db info)
 const connectDB = require("./dao/db-connection"); // Funkce pro připojení k DB
@@ -10,7 +11,8 @@ const phaseController = require("./controller/phase-controller");
 const projectController = require("./controller/project-controller");
 
 // Inicializace Express aplikace
-
+app.use(cors()); // Povolí přístup z jiných portů
+app.use(express.json());
 
 // ------------------------------------------------------------------
 // MIDDLWARE

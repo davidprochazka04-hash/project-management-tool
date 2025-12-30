@@ -1,0 +1,271 @@
+/* --- GLOBÁLNÍ NASTAVENÍ --- */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0f111a;
+  color: #e2e8f0; 
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* OPRAVA PRO IKONY: Vynucení viditelnosti SVG prvků */
+svg {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 0 30px;
+}
+
+/* --- HLAVIČKA A TLAČÍTKA --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.dashboard-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: #3b82f6; 
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+}
+
+.btn-danger {
+  background-color: transparent;
+  color: #ef4444; 
+  border: 1px solid #ef4444;
+}
+
+.btn-danger:hover {
+  background-color: #ef4444;
+  color: white;
+  transform: translateY(-1px);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+/* --- TABULKA PROJEKTŮ --- */
+.table-header, .project-row {
+  display: grid;
+  /* ZMĚNA: Zvětšeno ze 60px na 100px pro dvě tlačítka vedle sebe */
+  grid-template-columns: 200px 1fr 140px 100px; 
+  gap: 25px;
+  align-items: center;
+  padding: 18px 25px;
+}
+
+.table-header {
+  border-bottom: 1px solid #334155;
+  color: #94a3b8;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.project-row {
+  background-color: #1e293b44;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #1e293b;
+  transition: all 0.2s ease;
+}
+
+.project-row:hover {
+  border-color: #3b82f6;
+  background-color: #1e293b88;
+  transform: scale(1.005);
+}
+
+.column.name { font-weight: 600; color: #ffffff; }
+.column.description { color: #94a3b8; font-size: 15px; line-height: 1.6; }
+
+.phase-badge {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #3b82f6;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+}
+
+/* Sekce akcí v řádku */
+.column.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.btn-icon {
+  background: transparent;
+  color: #94a3b8;
+  padding: 8px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 36px;
+  height: 36px;
+}
+
+.btn-icon:hover {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+/* Speciální hover pro křížek (smazání projektu) */
+.btn-delete-project:hover {
+  background-color: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: white !important;
+}
+
+/* --- MODÁLNÍ OKNA (OBECNÉ) --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-card {
+  background-color: #1e293b;
+  width: 100%;
+  max-width: 500px;
+  padding: 35px;
+  border-radius: 16px;
+  border: 1px solid #334155;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.modal-header h2 { margin: 0; font-size: 24px; }
+
+.close-x {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between; 
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* --- OPRAVA FORMULÁŘE (Label nad Inputem) --- */
+.modal-form .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.modal-form label {
+  color: #94a3b8;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.modal-form input, 
+.modal-form textarea,
+.modal-form .phase-select {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.modal-form textarea { resize: vertical; min-height: 80px; }
+
+.modal-form input:focus, 
+.modal-form textarea:focus,
+.phase-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* --- STATUS MODÁL --- */
+.status-modal { max-width: 600px; }
+.status-section-title { color: #94a3b8; font-size: 14px; font-weight: 600; margin-bottom: 15px; text-transform: uppercase; }
+.phase-groups-list { display: flex; flex-direction: column; gap: 20px; }
+.status-phase-header { background-color: #0f172a; color: #ffffff; padding: 8px 16px; border-radius: 6px; font-weight: 600; display: inline-block; min-width: 120px; margin-bottom: 10px; }
+.status-project-list { display: flex; flex-direction: column; gap: 6px; padding-left: 5px; }
+.status-project-item { background-color: #0f172a44; border: 1px solid #334155; padding: 10px 15px; border-radius: 8px; color: #cbd5e1; font-size: 14px; }
+
+/* --- SPRÁVA FÁZÍ --- */
+.phase-modal { max-width: 450px; }
+.phase-add-form { display: flex; gap: 10px; margin-bottom: 25px; }
+.phase-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; background-color: #0f172a66; border: 1px solid #334155; border-radius: 10px; }
+.phase-display-wrapper, .edit-wrapper { display: flex; align-items: center; justify-content: space-between; width: 100%; gap: 10px; }
+.phase-name-text { font-weight: 500; color: #f8fafc; cursor: pointer; flex: 1; }
+.phase-actions-inline { display: flex; gap: 5px; }
+
+.delete-btn, .btn-action-small { color: #94a3b8; background: transparent; border: none; cursor: pointer; padding: 6px; border-radius: 6px; display: flex; align-items: center; }
+.delete-btn:hover { background-color: #ef444422; color: #ef4444; }
+.btn-save-inline { background: #10b981; color: white; border-radius: 6px; padding: 6px; cursor: pointer; }
+.btn-cancel-inline { background: #475569; color: white; border-radius: 6px; padding: 6px; cursor: pointer; }
