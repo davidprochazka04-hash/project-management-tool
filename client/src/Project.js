@@ -1,7 +1,10 @@
 import React from 'react';
-import { Edit2, X } from 'lucide-react'; // Přidán import křížku
+import { Edit2, X } from 'lucide-react';
+import { useProjects } from './context/ProjectContext'; // Import hooku
 
-const Project = ({ project, onEdit, onDelete }) => {
+const Project = ({ project, onEdit }) => {
+  const { deleteProject } = useProjects(); // Načtení funkce pro smazání z contextu
+
   return (
     <div className="project-row">
       <div className="column name">
@@ -14,7 +17,6 @@ const Project = ({ project, onEdit, onDelete }) => {
         <span className="phase-badge">{project.phaseName || "Idea"}</span>
       </div>
       
-      {/* Sekce akcí se dvěma tlačítky */}
       <div className="column actions">
         <button 
           className="btn-icon" 
@@ -24,10 +26,9 @@ const Project = ({ project, onEdit, onDelete }) => {
           <Edit2 size={16} />
         </button>
 
-        {/* Nové tlačítko pro smazání projektu */}
         <button 
           className="btn-icon btn-delete-project" 
-          onClick={() => onDelete(project.id)} 
+          onClick={() => deleteProject(project.id)} // Voláme funkci z contextu
           title="Smazat projekt"
         >
           <X size={16} />

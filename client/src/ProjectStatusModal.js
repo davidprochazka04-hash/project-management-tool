@@ -1,7 +1,13 @@
 import React from 'react';
 import { X } from 'lucide-react';
+import { useProjects } from './context/ProjectContext'; // Načtení hooku projektů
+import { usePhases } from './context/PhaseContext';     // Načtení hooku fází
 
-const ProjectStatusModal = ({ projects, phases, onClose }) => {
+const ProjectStatusModal = ({ onClose }) => {
+  // Přímý přístup k datům bez nutnosti předávání přes props
+  const { projects } = useProjects();
+  const { phases } = usePhases();
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-card status-modal" onClick={e => e.stopPropagation()}>
@@ -15,17 +21,15 @@ const ProjectStatusModal = ({ projects, phases, onClose }) => {
           
           <div className="phase-groups-list">
             {phases.map(phase => {
-              // Vyfiltrujeme projekty patřící do této fáze
-              const projectsInPhase = projects.filter(p => p.phaseId === phase.id);
+              // Filtrování s pojistkou na datový typ ID
+              const projectsInPhase = projects.filter(p => String(p.phaseId) === String(phase.id));
               
               return (
                 <div key={phase.id} className="status-phase-group">
-                  {/* Název fáze s počtem projektů */}
                   <div className="status-phase-header">
                     {phase.name} ({projectsInPhase.length})
                   </div>
                   
-                  {/* Seznam projektů v dané fázi */}
                   <div className="status-project-list">
                     {projectsInPhase.length > 0 ? (
                       projectsInPhase.map(project => (

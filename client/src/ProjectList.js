@@ -1,7 +1,10 @@
 import React from 'react';
 import Project from './Project';
+import { useProjects } from './context/ProjectContext'; // Import hooku
 
-const ProjectList = ({ projects, onEdit, onDelete }) => {
+const ProjectList = ({ onEdit }) => {
+  const { projects } = useProjects(); // Načtení projektů přímo z contextu
+
   return (
     <div className="project-table">
       <div className="table-header">
@@ -16,7 +19,6 @@ const ProjectList = ({ projects, onEdit, onDelete }) => {
             key={project.id} 
             project={project} 
             onEdit={onEdit} 
-            onDelete={onDelete} 
           />
         ))}
       </div>

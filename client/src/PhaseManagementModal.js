@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Trash2, X, Plus, Check, Edit2 } from 'lucide-react';
+import { usePhases } from './context/PhaseContext';
+import { useProjects } from './context/ProjectContext';
 
-// Přidána prop onRefreshProjects pro live aktualizaci hlavní tabulky
-const PhaseManagementModal = ({ onClose, onRefreshProjects }) => {
-  const [phases, setPhases] = useState([]);
+const PhaseManagementModal = ({ onClose }) => {
+  // Načtení dat a funkcí z PhaseContext
+  const { phases, createPhase, updatePhase, deletePhase } = usePhases();
+  // Načtení fetchProjects pro aktualizaci hlavní tabulky po změně fází
+  const { fetchProjects } = useProjects();
+
   const [newPhaseName, setNewPhaseName] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editValue, setEditValue] = useState('');
 
-  const fetchPhases = () => {
-    fetch('http://localhost:8000/phase/list')
-      .then(res => res.json())
-      .then(data => setPhases(data))
-      .catch(err => console.error("Chyba při načítání fází:", err));
-  };
-
-  useEffect(() => {
-    fetchPhases();
-  }, []);
-
-  const handleAddPhase = (e) => {
+  const handleAddPhase = async (e) => {
     e.preventDefault();
     if (!newPhaseName.trim()) return;
-    fetch('http://localhost:8000/phase/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: newPhaseName, description: 'Ručně vytvořeno' })
-    })
-    .then(res => res.ok ? res.json() : res.json().then(err => { throw err }))
-    .then(() => {
+
+    const result = await createPhase(newPhaseName);
+    if (result.success) {
       setNewPhaseName('');
-      fetchPhases();
-      // Aktualizuje seznam v App.js pro případ, že nová fáze ovlivní filtry/status
-      if (onRefreshProjects) onRefreshProjects();
-    })
-    .catch(err => alert(err.errorMessage || "Chyba při vytváření."));
+      fetchProjects(); // Aktualizace projektů, kdyby nová fáze ovlivnila UI
+    } else {
+      alert(result.error);
+    }
   };
 
   const startEdit = (phase) => {
@@ -42,38 +31,26 @@ const PhaseManagementModal = ({ onClose, onRefreshProjects }) => {
     setEditValue(phase.name);
   };
 
-  const handleUpdatePhase = (id) => {
+  const handleUpdatePhase = async (id) => {
     if (!editValue.trim()) return;
-    
-    fetch(`http://localhost:8000/phase/update/${id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: editValue })
-    })
-    .then(res => {
-      if (!res.ok) return res.json().then(err => { throw err });
-      return res.json();
-    })
-    .then(() => {
+
+    const result = await updatePhase(id, editValue);
+    if (result.success) {
       setEditingId(null);
-      fetchPhases();
-      // Po úspěšné změně názvu fáze řekne App.js, aby načetla čerstvá data projektů
-      if (onRefreshProjects) onRefreshProjects();
-    })
-    .catch(err => alert(err.errorMessage || "Chyba při aktualizaci fáze."));
+      fetchProjects(); // Změna názvu fáze se musí projevit v tabulce projektů
+    } else {
+      alert(result.error);
+    }
   };
 
-  const handleDeletePhase = (id, name) => {
-    if(window.confirm(`Opravdu smazat fázi "${name}"?`)) {
-      fetch(`http://localhost:8000/phase/delete/${id}`, { method: 'DELETE' })
-      .then(res => {
-        if (res.ok) {
-          fetchPhases();
-          if (onRefreshProjects) onRefreshProjects();
-        } else {
-          return res.json().then(e => alert(e.errorMessage));
-        }
-      });
+  const handleDeletePhase = async (id, name) => {
+    if (window.confirm(`Opravdu smazat fázi "${name}"?`)) {
+      const result = await deletePhase(id);
+      if (result.success) {
+        fetchProjects(); // Refresh projektů po smazání fáze
+      } else {
+        alert(result.error);
+      }
     }
   };
 
@@ -92,7 +69,9 @@ const PhaseManagementModal = ({ onClose, onRefreshProjects }) => {
             placeholder="Název nové fáze..."
             required
           />
-          <button type="submit" className="btn-primary"><Plus size={16}/> Přidat</button>
+          <button type="submit" className="btn-primary">
+            <Plus size={16}/> Přidat
+          </button>
         </form>
 
         <div className="phase-list">

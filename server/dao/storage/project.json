@@ -52,5 +52,12 @@
     "phaseId": "1545b9c82a84a73a",
     "phaseName": "Test",
     "id": "5c594447028739b2"
+  },
+  {
+    "name": "Celonis",
+    "description": "Process Mining integration",
+    "phaseId": "fccfb0fe7dba5f63",
+    "phaseName": "Idea",
+    "id": "da58911cbdcef983"
   }
 ]
