@@ -28,7 +28,7 @@ const Project = ({ project, onEdit }) => {
 
         <button 
           className="btn-icon btn-delete-project" 
-          onClick={() => deleteProject(project.id)} // Voláme funkci z contextu
+          onClick={() => deleteProject(project.id)} // Volá funkci z contextu
           title="Smazat projekt"
         >
           <X size={16} />

@@ -5,7 +5,7 @@ import { usePhases } from './context/PhaseContext'; // Import hooku pro fáze
 
 const ProjectForm = ({ editData, onClose }) => {
   const { createProject, updateProject } = useProjects();
-  const { phases } = usePhases(); // Fáze bereme přímo z contextu
+  const { phases } = usePhases(); // Fáze bere přímo z contextu
   
   const [name, setName] = useState(editData ? editData.name : '');
   const [description, setDescription] = useState(editData ? editData.description : '');
